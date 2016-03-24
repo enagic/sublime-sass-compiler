@@ -1,4 +1,4 @@
-sass/scss compiler for Sublime Text 2 & 3
+Portable sass/scss compiler for Sublime Text 2 & 3
 ====================================
 
 Description
