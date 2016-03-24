@@ -1,0 +1,9 @@
+{
+    //GENERAL /////////////////////////////////////////////////////////////////////////////////////////
+    "java_home": "",
+    "cache": false,
+    "cache_location": "",
+    "include_line_comments": false, // Emit comments in the generated CSS indicating the corresponding source line.
+    "include_line_numbers": true,
+    "style": "nested" // Output style. Can be nested (default), compact, compressed, or expanded.
+}

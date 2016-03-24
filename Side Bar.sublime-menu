@@ -1,0 +1,10 @@
+[
+	{ "caption": "-" },
+	{
+		"caption": "Build Scss",
+		"command": "scss_build",
+		"args": {
+			"paths": []
+		}
+	}
+]
