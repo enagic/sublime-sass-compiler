@@ -134,16 +134,19 @@ class SassCompileCommand(sublime_plugin.WindowCommand):
         return cmd
 
     def get_java_home(self):
-        java_home = settings.get('java_home')
+        java_home = None
 
-        if (java_home == None or java_home == ''):
-            for path in os.getenv('PATH').split(os.pathsep):
-                if os.path.sep + 'java' + os.path.sep in path.lower():
-                    java_home = path
-                    break
+        for path in os.getenv('PATH').split(os.pathsep):
+            if os.path.sep + 'java' + os.path.sep in path.lower():
+                java_home = path
+                break
+
+        if (java_home == None):
+            java_home = settings.get('java_home')
 
         if (java_home == None):
             sublime.error_message("JAVA_HOME could not be found")
+            java_home = ''
 
         return java_home
 
