@@ -56,6 +56,13 @@ The following **SassCompiler** settings are available in SassCompiler/SassCompil
 * `include_line_numbers`: true
 * `style`: `nested`
 
+Common Error Messages
+---------------------
+
+***The system cannot find the path specified.***
+
+The `java_home` configuration is set to the wrong path (i.e. `C:\\Windows\\System32\\java.exe` vs. `C:\\Windows\\System32`).
+ 
 
 Todo
 ----
