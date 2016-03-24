@@ -14,7 +14,7 @@ ON_POSIX = 'posix' in sys.builtin_module_names
 bufsize = -1
 settings = sublime.load_settings('Scss.sublime-settings')
 
-class ScssBuildCommand(sublime_plugin.WindowCommand):
+class SassCompileCommand(sublime_plugin.WindowCommand):
     def run(self, paths=[]):
         self.paths = paths
 
@@ -40,7 +40,7 @@ class ScssBuildCommand(sublime_plugin.WindowCommand):
             thread.start()
 
         self.thread = thread
-        self.message = 'Building SCSS'
+        self.message = 'Compiling'
         self.addend = 1
         self.size = 8
         sublime.set_timeout(lambda: self.show_progress(0), 100)
@@ -101,13 +101,18 @@ class ScssBuildCommand(sublime_plugin.WindowCommand):
         include_line_comments = settings.get('include_line_comments')
         cache = settings.get('cache')
         cache_location = settings.get('cache_location')
+        filename, file_extension = os.path.splitext(path)
+        gem = 'scss'
+
+        if (file_extension == '.sass'):
+            gem = 'sass'
 
         cmd = [
             java,
             '-jar',
             ruby,
             '-S',
-            'scss',
+            gem,
             '--update', # Compile files or directories to CSS.
             '--style', style,
             path
@@ -145,6 +150,6 @@ class ScssBuildCommand(sublime_plugin.WindowCommand):
         for path in paths:
             filename, file_extension = os.path.splitext(path)
             if is_visible:
-                is_visible = file_extension.lower() == '.scss'
+                is_visible = file_extension == '.scss' or file_extension == '.sass'
 
         return is_visible
