@@ -1,8 +1,8 @@
 [
 	{ "caption": "-" },
 	{
-		"caption": "Build Scss",
-		"command": "scss_build",
+		"caption": "Build to CSS",
+		"command": "sass_compile",
 		"args": {
 			"paths": []
 		}

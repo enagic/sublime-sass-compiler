@@ -12,7 +12,7 @@ ruby = os.path.join(bin_folder, 'Ruby193', 'ruby.jar')
 
 ON_POSIX = 'posix' in sys.builtin_module_names
 bufsize = -1
-settings = sublime.load_settings('Scss.sublime-settings')
+settings = sublime.load_settings('SassCompiler.sublime-settings')
 
 class SassCompileCommand(sublime_plugin.WindowCommand):
     def run(self, paths=[]):
