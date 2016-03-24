@@ -142,6 +142,9 @@ class SassCompileCommand(sublime_plugin.WindowCommand):
                     java_home = path
                     break
 
+        if (java_home == None):
+            sublime.error_message("JAVA_HOME could not be found")
+
         return java_home
 
     def is_visible(self, paths=[]):
