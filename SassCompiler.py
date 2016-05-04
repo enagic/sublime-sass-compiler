@@ -12,7 +12,6 @@ ruby = os.path.join(bin_folder, 'Ruby193', 'ruby.jar')
 
 ON_POSIX = 'posix' in sys.builtin_module_names
 bufsize = -1
-settings = sublime.load_settings('SassCompiler.sublime-settings')
 
 class SassCompileCommand(sublime_plugin.WindowCommand):
     def run(self, paths=[]):
@@ -96,6 +95,7 @@ class SassCompileCommand(sublime_plugin.WindowCommand):
 
     def build_cmd(self, path):
         java = os.path.join(self.get_java_home(), 'java')
+        settings = sublime.load_settings('SassCompiler.sublime-settings')
         style = settings.get('style') or 'nested'
         include_line_numbers = settings.get('include_line_numbers')
         include_line_comments = settings.get('include_line_comments')
@@ -114,8 +114,7 @@ class SassCompileCommand(sublime_plugin.WindowCommand):
             '-S',
             gem,
             '--update', # Compile files or directories to CSS.
-            '--style', style,
-            path
+            '--style', style
         ]
 
         if (cache):
@@ -124,28 +123,27 @@ class SassCompileCommand(sublime_plugin.WindowCommand):
         else:
             cmd.append('--no-cache')
 
+        # if (include_line_numbers):
+        cmd.append('--line-numbers')
 
-        if (include_line_numbers):
-            cmd.append('--line-numbers')
+        # if (include_line_comments):
+        cmd.append('--line-comments')
 
-        if (include_line_comments):
-            cmd.append('--line-comments')
+        cmd.append(path)
+
+        print(cmd)
 
         return cmd
 
     def get_java_home(self):
         java_home = None
-
-        for path in os.getenv('PATH').split(os.pathsep):
-            if os.path.sep + 'java' + os.path.sep in path.lower():
-                java_home = path
-                break
+        settings = sublime.load_settings('SassCompiler.sublime-settings')
 
         if (java_home == None):
             java_home = settings.get('java_home')
 
         if (java_home == None):
-            sublime.error_message("JAVA_HOME could not be found")
+            print("WARNING: JAVA_HOME could not be found")
             java_home = ''
 
         return java_home
